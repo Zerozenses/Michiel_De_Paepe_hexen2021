@@ -46,6 +46,8 @@ namespace HEX.GameSystem
         public GameObject SwingCard;
         [SerializeField]
         public GameObject TeleportCard;
+        [SerializeField]
+        public GameObject BombCard;
 
         //others
         private Grid<Position> _grid;
@@ -281,6 +283,11 @@ namespace HEX.GameSystem
                                 {
                                     hex.IsHighlighted = false;
                                     _movementManager.Move(_currentCard, _board.Player, hex.Position);
+                                    if(_currentCard.Type == CardType.Bomb)
+                                    {
+                                        //temporary to check if working
+                                        hex.Destruction();
+                                    }
                                     _deck.PlayCard(_currentCard, hex.Position);
                                     _currentCard.Used();
                                 }
@@ -297,7 +304,7 @@ namespace HEX.GameSystem
                         foreach (var hex in _hexes)
                         {
 
-                                    hex.IsHighlighted = false;
+                             hex.IsHighlighted = false;
 
                         }
                     }
@@ -354,7 +361,7 @@ namespace HEX.GameSystem
         //generate cards
         private void GenerateCard()
         {
-            switch (Random.Range(1, 5))
+            switch (Random.Range(1, 6))
             {
                 case 1:
                     var knockbackCard = Instantiate(KnockbackCard, _carddeck.transform);
@@ -388,7 +395,13 @@ namespace HEX.GameSystem
                     //cardTeleport.Grid = _grid;
                     _deck.RegisterCard(cardTeleport);
                     break;
-             }
+                case 5:
+                    var bombCard = Instantiate(BombCard, _carddeck.transform);
+                    Card cardBomb = bombCard.GetComponent<Card>();
+                    cardBomb.Type = CardType.Bomb;
+                    _deck.RegisterCard(cardBomb);
+                    break;
+            }
         }
 
         //draw card

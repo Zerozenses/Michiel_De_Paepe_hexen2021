@@ -58,6 +58,7 @@ namespace HEX.BoardSystem
         public event EventHandler<HitEventArgs<TPosition, TPiece>> Taken;
 
         private readonly BidirectionalDictionary<TPosition, TPiece> _positionPieces = new BidirectionalDictionary<TPosition, TPiece>();
+        private readonly BidirectionalDictionary<TPosition, Hex> _positionHexes = new BidirectionalDictionary<TPosition, Hex>();
 
         public bool Place(TPiece piece, TPosition toPosition)
         {
@@ -111,6 +112,9 @@ namespace HEX.BoardSystem
 
         public bool TryGetPieceAt(TPosition position, out TPiece piece)
             => _positionPieces.TryGetValue(position, out piece);
+
+        public bool TryGetHexAt(TPosition position, out Hex hex)
+            => _positionHexes.TryGetValue(position, out hex);
 
         public bool TryGetPositionOf(TPiece piece, out TPosition position)
             => _positionPieces.TryGetKey(piece, out position);

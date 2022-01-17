@@ -76,6 +76,9 @@ namespace HEX.GameSystem
             //Swipe card
             _cardMoves.Add(CardType.Swipe, new SwipeAction());
 
+            //Bomb card
+            _cardMoves.Add(CardType.Bomb, new BombAction());
+
             //isolated positions
 
             #region assign isolated positions
@@ -83,10 +86,12 @@ namespace HEX.GameSystem
             _adjustedMoves.Add(CardType.Teleport, new TeleportAction());
             //knockback card
             _adjustedMoves.Add(CardType.Knockback, new KnockbackAction());
-
+            //swing card
             _adjustedMoves.Add(CardType.Swing, new SwingAction());
-
+            //swipe card
             _adjustedMoves.Add(CardType.Swipe, new SwipeAction());
+            //bomb card
+            _adjustedMoves.Add(CardType.Bomb, new BombAction());
 
             #endregion
         }

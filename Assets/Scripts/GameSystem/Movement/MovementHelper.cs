@@ -135,6 +135,56 @@ namespace HEX.GameSystem
 
         #endregion
 
+        #region bomb movements
+        public MovementHelper BombDirection0(int numTiles = int.MaxValue, params Validator[] validators)
+            => MoveDirections((int)_directions[0].x, (int)_directions[0].y, 0, _tilePosition, numTiles, validators);
+
+        public MovementHelper BombDirection1(int numTiles = int.MaxValue, params Validator[] validators)
+            => MoveDirections((int)_directions[1].x, (int)_directions[1].y, 1, _tilePosition, numTiles, validators);
+
+        public MovementHelper BombDirection2(int numTiles = int.MaxValue, params Validator[] validators)
+            => MoveDirections((int)_directions[2].x, (int)_directions[2].y, 2, _tilePosition, numTiles, validators);
+
+        public MovementHelper BombDirection3(int numTiles = int.MaxValue, params Validator[] validators)
+            => MoveDirections((int)_directions[3].x, (int)_directions[3].y, 3,  _tilePosition, numTiles, validators);
+        public MovementHelper BombDirection4(int numTiles = int.MaxValue, params Validator[] validators)
+            => MoveDirections((int)_directions[4].x, (int)_directions[4].y, 4, _tilePosition, numTiles, validators);
+
+        public MovementHelper BombDirection5(int numTiles = int.MaxValue, params Validator[] validators)
+            => MoveDirections((int)_directions[5].x, (int)_directions[5].y, 5, _tilePosition, numTiles, validators);
+
+        public Vector2 GetBombNextDirectionDown(int currentDirection)
+        {
+            if (currentDirection - 1 < 0)
+            {
+                return _bombDirections[5];
+            }
+
+            else return _bombDirections[currentDirection - 1];
+        }
+
+        public Vector2 GetNextBombDirectionUp(int currentDirection)
+        {
+            if (currentDirection + 1 > 5)
+            {
+                return _bombDirections[0];
+            }
+
+            else return _bombDirections[currentDirection + 1];
+        }
+
+        public Vector2[] _bombDirections =
+            new Vector2[6]
+            {
+                new Vector2(0,1),
+                new Vector2(1,0),
+                new Vector2(1,-1),
+                new Vector2(0,-1),
+                new Vector2(-1,0),
+                new Vector2(-1,1)
+            };
+        #endregion
+
         public MovementHelper Warp()
         {
             _validPositions.Add(_tilePosition);
@@ -164,7 +214,7 @@ namespace HEX.GameSystem
                 var hasPiece = _board.TryGetPieceAt(nextPosition, out var nextPiece);
                 _validPositions.Add(nextPosition);
 
-                nextXCoordinate  += xOffset;
+                nextXCoordinate += xOffset;
                 nextYCoordinate += yOffset;
 
                 hasNextPosition = _grid.TryGetPositionAt(nextXCoordinate, nextYCoordinate, out nextPosition);
@@ -232,7 +282,7 @@ namespace HEX.GameSystem
             if (!isOk)
                 return this;
 
-            if(nextPosition.Equals(_tilePosition))
+            if (nextPosition.Equals(_tilePosition))
             {
                 directionList.Add(nextPosition);
 
@@ -240,7 +290,7 @@ namespace HEX.GameSystem
                 Vector2 upPosition = GetNextDirectionUp(directionNumber);
                 var upX = coordinate.x + (int)upPosition.x;
                 var upY = coordinate.y + (int)upPosition.y;
-                if( _grid.TryGetPositionAt(upX, upY, out var upperPosition))
+                if (_grid.TryGetPositionAt(upX, upY, out var upperPosition))
                 {
                     directionList.Add(upperPosition);
                 }
@@ -249,26 +299,60 @@ namespace HEX.GameSystem
                     //if(upperPosition.Equals()
                     //directionList.Add(upperPosition);
                 }
-                
+
 
                 //down position
                 Vector2 downPosition = GetNextDirectionDown(directionNumber);
                 var downX = coordinate.x + (int)downPosition.x;
                 var downY = coordinate.y + (int)downPosition.y;
-                if( _grid.TryGetPositionAt(downX, downY, out var lowerPosition))
-                { 
+                if (_grid.TryGetPositionAt(downX, downY, out var lowerPosition))
+                {
                     directionList.Add(lowerPosition);
                 }
                 else
                 {
                     //directionList.Add(lowerPosition);
                 }
-                
+
 
                 //check valid positions
                 _isolatedPositions = directionList;
             }
 
+            return this;
+
+        }
+
+        public MovementHelper MoveDirections(int xOffset, int yOffset, int directionNumber, Position pos, int numTiles = int.MaxValue, params Validator[] validators)
+        {
+
+            Position position = _tilePosition;
+
+
+            if (!_grid.TryGetCoordinateAt(position, out var coordinate))
+                return this;
+
+            var nextXCoordinate = coordinate.x + xOffset;
+            var nextYCoordinate = coordinate.y + yOffset;
+
+            var hasNextPosition = _grid.TryGetPositionAt(nextXCoordinate, nextYCoordinate, out var nextPosition);
+            int step = 0;
+            while (hasNextPosition && step < numTiles)
+            {
+                var isOk = validators.All((v) => v(_board, _grid, _board.Player, position));
+                if (!isOk)
+                    return this;
+
+                //var hasPiece = _board.TryGetPieceAt(nextPosition, out var nextPiece);
+                _validPositions.Add(nextPosition);
+
+                nextXCoordinate += xOffset;
+                nextYCoordinate += yOffset;
+
+                hasNextPosition = _grid.TryGetPositionAt(nextXCoordinate, nextYCoordinate, out nextPosition);
+
+                step++;
+            }
             return this;
 
         }

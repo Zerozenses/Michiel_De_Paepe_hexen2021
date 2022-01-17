@@ -57,6 +57,11 @@ namespace HEX.BoardSystem
             }
         }
 
+        public void Destruction()
+        {
+            Destroy(gameObject);
+        }
+
         public void PositionDeactivated(object sender, EventArgs e)
             => OnDeactivate.Invoke();
 

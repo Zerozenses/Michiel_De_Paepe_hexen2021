@@ -25,21 +25,11 @@ namespace HEX.GameSystem
             var hasEnemyPiece = board.TryGetPieceAt(position, out var toPiece);
             //board.TryGetPositionOf(piece, out var fromPosition);
 
-            Action forward = () =>
-            {
                 if (hasEnemyPiece)
                     board.Hit(toPiece);
 
                 board.Move(piece, position);
-            };
 
-            Action backward = () =>
-            {
-                board.Move(piece, fromPosition);
-
-                if (hasEnemyPiece)
-                    board.Place(toPiece, position);
-            };
         }
 
         public abstract List<Position> Positions(Board<Position, ICharacter> board, Grid<Position> grid, ICharacter piece, ICard card, Position position);

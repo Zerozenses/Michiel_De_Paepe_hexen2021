@@ -8,6 +8,6 @@ namespace HEX.CardSystem
 {
     public enum CardType
     {
-        Teleport, Swipe, Knockback, Swing
+        Teleport, Swipe, Knockback, Swing, Bomb
     }
 }

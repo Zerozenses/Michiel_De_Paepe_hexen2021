@@ -264,6 +264,7 @@ MonoBehaviour:
   KnockbackCard: {fileID: 6076141816299795663, guid: 01a19adbb22cf674ba99e8b06c862209, type: 3}
   SwingCard: {fileID: 8757561688547062112, guid: 5bafc96df2e997d4292a8f787163930c, type: 3}
   TeleportCard: {fileID: 5165610228774172547, guid: 1a37a328b582fc746a236fdd37a1c04b, type: 3}
+  BombCard: {fileID: 8331912584127140859, guid: ffde9797c4af1c147bbff06db9016e7b, type: 3}
 --- !u!4 &547288292
 Transform:
   m_ObjectHideFlags: 0
