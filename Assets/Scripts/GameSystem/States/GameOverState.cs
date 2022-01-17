@@ -21,13 +21,12 @@ namespace HEX.GameSystem
         public override void OnEnter()
         {
             _screen.SetActive(true);
-
         }
 
         public override void OnExit()
         {
-            _screen.SetActive(false);
-            base.OnExit();
+            //_screen.SetActive(false);
+            //base.OnExit();
         }
     }
 }

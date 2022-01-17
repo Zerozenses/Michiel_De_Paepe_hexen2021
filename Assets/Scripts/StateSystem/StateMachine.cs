@@ -16,6 +16,7 @@ namespace HEX.StateSystem
             CurrentState = _gameStates[name];
         }
 
+
         public void Register(GameStates name, TGameState gameState)
         {
             gameState.StateMachine = this;

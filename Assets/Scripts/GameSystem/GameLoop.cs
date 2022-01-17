@@ -64,6 +64,7 @@ namespace HEX.GameSystem
         private MoveManager _movementManager;
         private Player _player;
         private Card _currentCard;
+        private StateMachine<GameStateBase> _gameStateMachine;
         #endregion
 
         public void Start()
@@ -72,8 +73,6 @@ namespace HEX.GameSystem
             _grid = new Grid<Position>(_radius*2+2, _radius*2+2);
             _board = new Board<Position, ICharacter>();
             _deck = new Deck<Card>();
-
-            //g
 
             //Set up hexes
             CreateBoard();
@@ -109,12 +108,15 @@ namespace HEX.GameSystem
                          //Action manager for enemies and card effects
 
             //logging game states
-            var gameStateMachine = new StateMachine<GameStateBase>();
-            gameStateMachine.Register(GameStates.Playable, new PlayGameState(gameStateMachine, _carddeck, _player));
-            gameStateMachine.Register(GameStates.Start, new StartMenuState(gameStateMachine, _startMenu, _button));
-            gameStateMachine.Register(GameStates.End, new GameOverState(gameStateMachine, _gameOverMenu));
-            gameStateMachine.SetStartState(GameStates.Playable);
+            _gameStateMachine = new StateMachine<GameStateBase>();
+            _gameStateMachine.Register(GameStates.Playable, new PlayGameState(_gameStateMachine, _carddeck, _player));
+            _gameStateMachine.Register(GameStates.Start, new StartMenuState(_gameStateMachine, _startMenu, _button));
+            _gameStateMachine.Register(GameStates.End, new GameOverState(_gameStateMachine, _gameOverMenu));
+            _gameStateMachine.SetStartState(GameStates.Start);
+            _gameStateMachine.MoveToState(GameStates.Start);
 
+            //extra state notes
+            _button.onClick.AddListener(delegate { ButtonClick(); });
 
             OnInitialized(EventArgs.Empty);
         }
@@ -124,6 +126,11 @@ namespace HEX.GameSystem
         {
             EventHandler handler = Initialized;
             handler?.Invoke(this, arg);
+        }
+
+        private void ButtonClick()
+        {
+            _gameStateMachine.MoveToState(GameStates.Playable);
         }
 
         #region board
@@ -227,6 +234,12 @@ namespace HEX.GameSystem
                     Debug.Log("player tasks");
                 }
                 e.Piece.Hitting();
+
+                if (e.Piece.CharacterType == CharacterType.Player)
+                {
+                    _gameStateMachine.MoveToState(GameStates.End);
+                }
+
             };
 
         }

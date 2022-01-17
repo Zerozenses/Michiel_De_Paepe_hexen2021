@@ -622,6 +622,7 @@ MonoBehaviour:
   _playerModel: {fileID: 1436554021489303164, guid: 57ae735d4cb96fd4bad4eef2bd38fc3c, type: 3}
   _enemyModel: {fileID: 4395263437760579191, guid: ab52fa891a789ae45a41449a7372e3eb, type: 3}
   _startMenu: {fileID: 1939993391}
+  _button: {fileID: 97850824}
   _gameOverMenu: {fileID: 1965704463}
   _radius: 4
   _amountEnemies: 5
@@ -1000,7 +1001,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1193813848
 RectTransform:
   m_ObjectHideFlags: 0

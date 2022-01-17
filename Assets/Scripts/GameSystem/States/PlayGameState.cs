@@ -12,20 +12,20 @@ namespace HEX.GameSystem
     {
         public const string Name = "PlayGame";
 
-        private Player Player;
+        private ICharacter Player;
 
         private GameObject _deck;
 
 
-        public PlayGameState(StateMachine<GameStateBase> stateMachine, GameObject deck, ICharacter Player): base(stateMachine)
+        public PlayGameState(StateMachine<GameStateBase> stateMachine, GameObject deck, ICharacter player): base(stateMachine)
         {
-            
+            _deck = deck;
+            Player = player;
         }
 
         public override void OnEnter()
         {
             _deck.SetActive(true);
-            
         }
 
         public override void OnExit()

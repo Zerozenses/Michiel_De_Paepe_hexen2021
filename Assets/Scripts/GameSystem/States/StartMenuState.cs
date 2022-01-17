@@ -17,13 +17,9 @@ namespace HEX.GameSystem
             Button _button;
             public StartMenuState(StateMachine<GameStateBase> stateMachine, GameObject menu, Button button) : base(stateMachine)
             {
-                
+            _menu = menu;
+            _button = button;
             }
-
-                void Update()
-                {
-                    _button.onClick.AddListener(delegate { ParameterOnClick(); });
-                }
 
             public override void OnEnter()
             {
@@ -34,12 +30,7 @@ namespace HEX.GameSystem
             public override void OnExit()
             {
                 _menu.SetActive(false);
-                base.OnExit();
-            }
-
-            private void ParameterOnClick()
-            {
-                StateMachine.MoveToState(GameStates.Playable);
+                //base.OnExit();
             }
 
 
