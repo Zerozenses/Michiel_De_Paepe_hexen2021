@@ -1,11 +1,8 @@
 {
-    "name": "HEX.GameSystem",
+    "name": "HEX.StateSystem",
     "rootNamespace": "",
     "references": [
-        "GUID:0a437bc1c3c8386488c39d00fa7a419c",
-        "GUID:b61b86251381cca40a343e36c493a7fb",
-        "GUID:f35773c6e2725784cb3cc254228825e9",
-        "GUID:6400d39f331238b4fa5371ea098be3f2"
+        "GUID:0a437bc1c3c8386488c39d00fa7a419c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
