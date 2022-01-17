@@ -1,0 +1,17 @@
+{
+    "name": "HEX.BoardSystem",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0a437bc1c3c8386488c39d00fa7a419c",
+        "GUID:f35773c6e2725784cb3cc254228825e9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

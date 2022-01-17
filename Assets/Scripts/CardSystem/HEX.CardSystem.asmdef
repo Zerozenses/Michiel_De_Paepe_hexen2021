@@ -1,0 +1,16 @@
+{
+    "name": "HEX.CardSystem",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0a437bc1c3c8386488c39d00fa7a419c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
