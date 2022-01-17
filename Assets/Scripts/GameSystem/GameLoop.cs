@@ -1,6 +1,7 @@
 using HEX.Additional;
 using HEX.BoardSystem;
 using HEX.CardSystem;
+using HEX.StateSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace HEX.GameSystem
 {
     public class GameLoop : MonoBehaviour
     {
-       #region fields
+        #region fields
         //essentials
         public event EventHandler Initialized;
         [SerializeField]
@@ -28,6 +29,12 @@ namespace HEX.GameSystem
         public GameObject _playerModel;
         [SerializeField]
         public GameObject _enemyModel;
+        [SerializeField]
+        public GameObject _startMenu;
+        [SerializeField]
+        public Button _button;
+        [SerializeField]
+        public GameObject _gameOverMenu;
 
         //amounts
         [SerializeField]
@@ -66,6 +73,8 @@ namespace HEX.GameSystem
             _board = new Board<Position, ICharacter>();
             _deck = new Deck<Card>();
 
+            //g
+
             //Set up hexes
             CreateBoard();
 
@@ -99,7 +108,13 @@ namespace HEX.GameSystem
             CardLogic(); //Actions of the cards
                          //Action manager for enemies and card effects
 
-            //Replaymanager?
+            //logging game states
+            var gameStateMachine = new StateMachine<GameStateBase>();
+            gameStateMachine.Register(GameStates.Playable, new PlayGameState(gameStateMachine, _board, _grid, _deck, _player, _currentCard));
+            gameStateMachine.Register(GameStates.Start, new StartMenuState(gameStateMachine, _startMenu, _button));
+            gameStateMachine.Register(GameStates.End, new GameOverState(gameStateMachine));
+            gameStateMachine.SetStartState(GameStates.Playable);
+
 
             OnInitialized(EventArgs.Empty);
         }
@@ -207,6 +222,10 @@ namespace HEX.GameSystem
             _board.Taken += (s, e) =>
             {
                 Debug.Log(e.Piece.CharacterType + " was found");
+                if(e.Piece.CharacterType == CharacterType.Player)
+                {
+                    Debug.Log("player tasks");
+                }
                 e.Piece.Hitting();
             };
 

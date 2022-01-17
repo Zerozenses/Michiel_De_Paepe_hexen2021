@@ -7,22 +7,22 @@ namespace HEX.StateSystem
 {
     public class StateMachine<TGameState> where TGameState : class, IGameState<TGameState>
     {
-        private Dictionary<string, TGameState> _gameStates = new Dictionary<string, TGameState>();
+        private Dictionary<GameStates, TGameState> _gameStates = new Dictionary<GameStates, TGameState>();
 
         public TGameState CurrentState { get; internal set; }
 
-        public void SetStartState(string name)
+        public void SetStartState(GameStates name)
         {
             CurrentState = _gameStates[name];
         }
 
-        public void AddState(string name, TGameState gameState)
+        public void Register(GameStates name, TGameState gameState)
         {
             gameState.StateMachine = this;
             _gameStates.Add(name, gameState);
         }
 
-        public void MoveToState(string name)
+        public void MoveToState(GameStates name)
         {
             CurrentState?.OnExit();
 

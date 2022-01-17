@@ -6,11 +6,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HEX.StateSystem
+namespace HEX.GameSystem
 {
     public abstract class GameStateBase : IGameState<GameStateBase>
     {
         public StateMachine<GameStateBase> StateMachine { set; protected get; }
+        protected GameStateBase(StateMachine<GameStateBase> stateMachine)
+        {
+            StateMachine = stateMachine;
+        }
 
         public virtual void OnExit() { }
 

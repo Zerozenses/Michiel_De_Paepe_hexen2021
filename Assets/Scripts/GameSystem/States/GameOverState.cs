@@ -1,18 +1,19 @@
+using HEX.Additional;
+using HEX.BoardSystem;
+using HEX.CardSystem;
+using HEX.StateSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameOverState : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+namespace HEX.GameSystem
+{
+    public class GameOverState : GameStateBase
     {
-        
+        public GameOverState(StateMachine<GameStateBase> stateMachine) : base(stateMachine)
+        {
+
+        }
     }
 }
