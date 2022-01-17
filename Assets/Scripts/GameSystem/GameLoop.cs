@@ -110,9 +110,9 @@ namespace HEX.GameSystem
 
             //logging game states
             var gameStateMachine = new StateMachine<GameStateBase>();
-            gameStateMachine.Register(GameStates.Playable, new PlayGameState(gameStateMachine, _board, _grid, _deck, _player, _currentCard));
+            gameStateMachine.Register(GameStates.Playable, new PlayGameState(gameStateMachine, _carddeck, _player));
             gameStateMachine.Register(GameStates.Start, new StartMenuState(gameStateMachine, _startMenu, _button));
-            gameStateMachine.Register(GameStates.End, new GameOverState(gameStateMachine));
+            gameStateMachine.Register(GameStates.End, new GameOverState(gameStateMachine, _gameOverMenu));
             gameStateMachine.SetStartState(GameStates.Playable);
 
 

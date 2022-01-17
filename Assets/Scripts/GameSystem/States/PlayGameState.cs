@@ -24,7 +24,8 @@ namespace HEX.GameSystem
 
         public override void OnEnter()
         {
-            base.OnEnter();
+            _deck.SetActive(true);
+            
         }
 
         public override void OnExit()

@@ -11,9 +11,23 @@ namespace HEX.GameSystem
 {
     public class GameOverState : GameStateBase
     {
-        public GameOverState(StateMachine<GameStateBase> stateMachine) : base(stateMachine)
-        {
+        GameObject _screen;
 
+        public GameOverState(StateMachine<GameStateBase> stateMachine, GameObject screen) : base(stateMachine)
+        {
+            _screen = screen;
+        }
+
+        public override void OnEnter()
+        {
+            _screen.SetActive(true);
+
+        }
+
+        public override void OnExit()
+        {
+            _screen.SetActive(false);
+            base.OnExit();
         }
     }
 }
